@@ -1,0 +1,152 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/icon.png" type="Texture" id=1]
+[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://assets/test_pro_bg.png" type="Texture" id=3]
+[ext_resource path="res://assets/dog_walk1.png" type="Texture" id=4]
+[ext_resource path="res://assets/aoe_fire.png" type="Texture" id=5]
+[ext_resource path="res://Dog.gd" type="Script" id=6]
+[ext_resource path="res://BlueBlock.gd" type="Script" id=7]
+[ext_resource path="res://Fire.gd" type="Script" id=8]
+[ext_resource path="res://AutosaveLabel.gd" type="Script" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 31.5798, 31.9064 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="BG" type="Sprite" parent="."]
+position = Vector2( 504.038, 293.013 )
+scale = Vector2( 2.24738, 1.36341 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="BlueBlock" type="Sprite" parent="." groups=[
+"pawn",
+]]
+position = Vector2( 523.505, 87.0325 )
+texture = ExtResource( 1 )
+script = ExtResource( 7 )
+
+[node name="Area2D" type="Area2D" parent="BlueBlock"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlueBlock/Area2D"]
+shape = SubResource( 1 )
+
+[node name="Dog" type="Sprite" parent="." groups=[
+"pawn",
+]]
+position = Vector2( 788.159, 360.6 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+script = ExtResource( 6 )
+
+[node name="Area2D2" type="Area2D" parent="Dog"]
+position = Vector2( 2.45236, 4.63013 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dog/Area2D2"]
+shape = SubResource( 1 )
+
+[node name="Fire" type="Sprite" parent="." groups=[
+"pawn",
+]]
+position = Vector2( 244.85, 368.333 )
+scale = Vector2( 0.106519, 0.100875 )
+texture = ExtResource( 3 )
+script = ExtResource( 8 )
+
+[node name="Fire2" type="Sprite" parent="Fire"]
+position = Vector2( -3.90771, -3.22192 )
+scale = Vector2( 9.38801, 9.91326 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Area2D3" type="Area2D" parent="Fire"]
+position = Vector2( 0.168457, -12.5554 )
+scale = Vector2( 9.38801, 9.91326 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fire/Area2D3"]
+shape = SubResource( 1 )
+
+[node name="Save" type="Button" parent="."]
+margin_left = 8.90034
+margin_top = 550.632
+margin_right = 49.9003
+margin_bottom = 570.632
+rect_scale = Vector2( 2, 2 )
+text = "save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WipeSave" type="Button" parent="."]
+margin_left = 190.831
+margin_top = 551.385
+margin_right = 273.831
+margin_bottom = 571.385
+rect_scale = Vector2( 2, 2 )
+text = "wipe save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResetPosition" type="Button" parent="."]
+margin_left = 367.96
+margin_top = 550.967
+margin_right = 475.96
+margin_bottom = 570.967
+rect_scale = Vector2( 2, 2 )
+text = "reset positions"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Autosave" type="Button" parent="."]
+margin_left = 593.898
+margin_top = 550.8
+margin_right = 709.898
+margin_bottom = 570.8
+rect_scale = Vector2( 2, 2 )
+text = "toggle autosave"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AutosaveLabel" type="Label" parent="Autosave"]
+margin_left = 2.14999
+margin_top = -15.575
+margin_right = 126.15
+margin_bottom = -1.57501
+text = "autosave status: off"
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Load" type="Button" parent="."]
+margin_left = 101.852
+margin_top = 550.519
+margin_right = 140.852
+margin_bottom = 570.519
+rect_scale = Vector2( 2, 2 )
+text = "load"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="mouse_entered" from="BlueBlock/Area2D" to="BlueBlock" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="BlueBlock/Area2D" to="BlueBlock" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="Dog/Area2D2" to="Dog" method="_on_Area2D2_mouse_entered"]
+[connection signal="mouse_exited" from="Dog/Area2D2" to="Dog" method="_on_Area2D2_mouse_exited"]
+[connection signal="mouse_entered" from="Fire/Area2D3" to="Fire" method="_on_Area2D3_mouse_entered"]
+[connection signal="mouse_exited" from="Fire/Area2D3" to="Fire" method="_on_Area2D3_mouse_exited"]
+[connection signal="pressed" from="Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="WipeSave" to="." method="_on_WhipeSave_pressed"]
+[connection signal="pressed" from="ResetPosition" to="." method="_on_ResetPosition_pressed"]
+[connection signal="pressed" from="Autosave" to="." method="_on_Autosave_pressed"]
+[connection signal="pressed" from="Load" to="." method="_on_Load_pressed"]
